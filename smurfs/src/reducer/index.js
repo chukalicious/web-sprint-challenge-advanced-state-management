@@ -1,5 +1,5 @@
 const initialState = {
-  isLoading: false,
+  smurf: [],
 };
 
 export const villageReducer = (state = initialState, action) => {
