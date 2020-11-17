@@ -1,17 +1,24 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
+import { moveSmurf } from "../actions";
 
-const AddSmurfForm = () => {
-  const [smurf, setSmurf] = useState({});
-  console.log("local state in form: ", smurf);
+const AddSmurfForm = (props) => {
+  console.log("THIS SHOULD BE THE ACTION: ", props);
+  const [newSmurf, setNewSmurf] = useState({});
+  console.log("local state in form: ", newSmurf);
 
   const handleChange = (e) => {
-    setSmurf({ ...smurf, [e.target.name]: e.target.value });
+    setNewSmurf({
+      ...newSmurf,
+      [e.target.name]: e.target.value,
+      id: Date.now(),
+    });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //move smurf action
-    setSmurf({
+    props.moveSmurf(newSmurf);
+    setNewSmurf({
       name: "",
       age: "",
       height: "",
@@ -25,21 +32,21 @@ const AddSmurfForm = () => {
         <input
           placeholder="Enter smurf name"
           name="name"
-          value={smurf.name}
+          value={newSmurf.name}
           onChange={handleChange}
         />
         <br />
         <input
           placeholder="Enter smurf age"
           name="age"
-          value={smurf.age}
+          value={newSmurf.age}
           onChange={handleChange}
         />
         <br />
         <input
           placeholder="Enter smurf height"
           name="height"
-          value={smurf.height}
+          value={newSmurf.height}
           onChange={handleChange}
         />
         <br />
@@ -49,4 +56,4 @@ const AddSmurfForm = () => {
   );
 };
 
-export default AddSmurfForm;
+export default connect(null, { moveSmurf })(AddSmurfForm);
