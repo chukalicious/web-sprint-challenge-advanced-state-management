@@ -3,9 +3,7 @@ import { connect } from "react-redux";
 import { moveSmurf } from "../actions";
 
 const AddSmurfForm = (props) => {
-  console.log("THIS SHOULD BE THE ACTION: ", props);
   const [newSmurf, setNewSmurf] = useState({});
-  console.log("local state in form: ", newSmurf);
 
   const handleChange = (e) => {
     setNewSmurf({
