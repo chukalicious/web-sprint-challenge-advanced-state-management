@@ -1,9 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { connect } from "react-redux";
-import { moveSmurf } from "../actions";
+import { postSmurf } from "../actions";
 
 const AddSmurfForm = (props) => {
   const [newSmurf, setNewSmurf] = useState({});
+  useEffect(() => {
+    axios.post("http://localhost:3333/smurfs", newSmurf).then((res) => {
+      setNewSmurf();
+    });
+  }, [newSmurf]);
 
   const handleChange = (e) => {
     setNewSmurf({
@@ -15,7 +21,8 @@ const AddSmurfForm = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.moveSmurf(newSmurf);
+
+    props.postSmurf(newSmurf);
     setNewSmurf({
       name: "",
       age: "",
@@ -54,4 +61,4 @@ const AddSmurfForm = (props) => {
   );
 };
 
-export default connect(null, { moveSmurf })(AddSmurfForm);
+export default connect(null, { postSmurf })(AddSmurfForm);

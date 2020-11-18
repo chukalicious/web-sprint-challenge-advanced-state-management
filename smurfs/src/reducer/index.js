@@ -1,17 +1,18 @@
-import { MOVE_SMURF } from "../actions";
+import {
+  MOVE_SMURF,
+  START_VILLAGE,
+  VILLAGE_SUCCESS,
+  VILLAGE_FAIL,
+  POST_SMURF,
+} from "../actions";
 
 const initialState = {
   smurf: [],
+  isLoading: false,
 };
 
 export const villageReducer = (state = initialState, action) => {
   switch (action.type) {
-    case MOVE_SMURF: {
-      return {
-        ...state,
-        smurf: [...state.smurf, action.payload],
-      };
-    }
     default:
       return state;
   }

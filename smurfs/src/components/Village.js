@@ -1,11 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
+import { buildVillage } from "../actions";
 
 const Village = (props) => {
   console.log("these are the props passed down to the village: ", props);
   return (
     <div>
       <h3>This is the Village</h3>
+      <button onClick={props.buildVillage}>Build Village!</button>
       {props.smurfs.map((smf) => (
         <div key={smf.id}>
           <p>Name: {smf.name}</p>
@@ -22,4 +24,4 @@ const mapStateToProps = (state) => {
     smurfs: state.smurf,
   };
 };
-export default connect(mapStateToProps, {})(Village);
+export default connect(mapStateToProps, { buildVillage })(Village);
