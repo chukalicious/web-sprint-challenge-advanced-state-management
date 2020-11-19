@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
+import { getVillage } from "../actions";
 
-const AddSmurfForm = () => {
+const AddSmurfForm = (props) => {
   const [smurfForm, setSmurfForm] = useState({
     name: "",
     age: "",
@@ -10,10 +11,7 @@ const AddSmurfForm = () => {
     id: Date.now(),
   });
 
-  console.log("Smurf: (Form component local state)", smurfForm);
-
   const [newSmurfs, setNewSmurf] = useState([]);
-  console.log("newSmurfs: (Form component local state)", newSmurfs);
 
   const handleChange = (e) => {
     setSmurfForm({ ...smurfForm, [e.target.name]: e.target.value });
@@ -25,6 +23,7 @@ const AddSmurfForm = () => {
       .post("http://localhost:3333/smurfs", smurfForm)
       .then((res) => {
         setNewSmurf(res.data);
+        props.getVillage();
         setSmurfForm({ name: "", age: "", height: "" });
       })
       .catch((err) => console.log(err.message));
@@ -61,4 +60,4 @@ const AddSmurfForm = () => {
   );
 };
 
-export default AddSmurfForm;
+export default connect(null, { getVillage })(AddSmurfForm);

@@ -11,5 +11,3 @@ export const getVillage = () => (dispatch) => {
     .then((res) => dispatch({ type: VILLAGE_SUCCESS, payload: res.data }))
     .catch((err) => dispatch({ type: VILLAGE_FAIL, payload: err }));
 };
-
-export const populateVillage = () => {};
