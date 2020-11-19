@@ -4,30 +4,32 @@ import { connect } from "react-redux";
 import { postSmurf } from "../actions";
 
 const AddSmurfForm = (props) => {
-  const [newSmurf, setNewSmurf] = useState({});
-  useEffect(() => {
-    axios.post("http://localhost:3333/smurfs", newSmurf).then((res) => {
-      setNewSmurf();
-    });
-  }, [newSmurf]);
+  const [smurfForm, setSmurfForm] = useState({
+    name: "",
+    age: "",
+    height: "",
+    id: Date.now(),
+  });
+  const [newSmurfs, setNewSmurf] = useState([]);
+  console.log("Smurf: ", smurfForm);
 
   const handleChange = (e) => {
-    setNewSmurf({
-      ...newSmurf,
-      [e.target.name]: e.target.value,
-      id: Date.now(),
-    });
+    setSmurfForm({ ...smurfForm, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    axios.post("http://localhost:3333/smurfs", smurfForm).then((res) => {
+      setNewSmurf(res);
+      setSmurfForm({ name: "", age: "", height: "" });
+    });
 
-    props.postSmurf(newSmurf);
-    setNewSmurf({
+    props.postSmurf(smurfForm);
+    /* setSmurf({
       name: "",
       age: "",
       height: "",
-    });
+    }); */
   };
 
   return (
@@ -37,21 +39,21 @@ const AddSmurfForm = (props) => {
         <input
           placeholder="Enter smurf name"
           name="name"
-          value={newSmurf.name}
+          value={smurfForm.name}
           onChange={handleChange}
         />
         <br />
         <input
           placeholder="Enter smurf age"
           name="age"
-          value={newSmurf.age}
+          value={smurfForm.age}
           onChange={handleChange}
         />
         <br />
         <input
           placeholder="Enter smurf height"
           name="height"
-          value={newSmurf.height}
+          value={smurfForm.height}
           onChange={handleChange}
         />
         <br />
