@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { connect } from "react-redux";
 
 const AddSmurfForm = () => {
   const [smurfForm, setSmurfForm] = useState({
@@ -20,10 +21,13 @@ const AddSmurfForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post("http://localhost:3333/smurfs", smurfForm).then((res) => {
-      setNewSmurf(res);
-      setSmurfForm({ name: "", age: "", height: "" });
-    });
+    axios
+      .post("http://localhost:3333/smurfs", smurfForm)
+      .then((res) => {
+        setNewSmurf(res.data);
+        setSmurfForm({ name: "", age: "", height: "" });
+      })
+      .catch((err) => console.log(err.message));
   };
 
   return (
