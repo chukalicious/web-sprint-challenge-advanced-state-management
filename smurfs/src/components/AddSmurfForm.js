@@ -1,17 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import { connect } from "react-redux";
-import { postSmurf } from "../actions";
 
-const AddSmurfForm = (props) => {
+const AddSmurfForm = () => {
   const [smurfForm, setSmurfForm] = useState({
     name: "",
     age: "",
     height: "",
     id: Date.now(),
   });
+
+  console.log("Smurf: (Form component local state)", smurfForm);
+
   const [newSmurfs, setNewSmurf] = useState([]);
-  console.log("Smurf: ", smurfForm);
+  console.log("newSmurfs: (Form component local state)", newSmurfs);
 
   const handleChange = (e) => {
     setSmurfForm({ ...smurfForm, [e.target.name]: e.target.value });
@@ -23,13 +24,6 @@ const AddSmurfForm = (props) => {
       setNewSmurf(res);
       setSmurfForm({ name: "", age: "", height: "" });
     });
-
-    props.postSmurf(smurfForm);
-    /* setSmurf({
-      name: "",
-      age: "",
-      height: "",
-    }); */
   };
 
   return (
@@ -63,4 +57,4 @@ const AddSmurfForm = (props) => {
   );
 };
 
-export default connect(null, { postSmurf })(AddSmurfForm);
+export default AddSmurfForm;

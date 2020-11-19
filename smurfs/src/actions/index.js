@@ -18,12 +18,12 @@ export const postSmurf = (smurf) => {
 //if success add to state
 //if error, error to state
 
-/* export const getSmurf = (smurf) => (dispatch) => {
+export const getSmurf = (smurf) => (dispatch) => {
   dispatch({ type: START_VILLAGE });
   axios
-    .post("http://localhost:3333/smurfs", smurf)
+    .get("http://localhost:3333/smurfs")
     .then((res) => dispatch({ type: VILLAGE_SUCCESS, payload: smurf }))
     .catch((err) => dispatch({ type: VILLAGE_FAIL, payload: err.message }));
-}; */
+};
 
 export const buildVillage = () => {};
